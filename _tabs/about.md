@@ -14,6 +14,7 @@ and reporting on penetration-test findings — and hands-on exploit development.
 
 - **CVE-2023-26089** — Account takeover in IUCLID 6 via a weakly-signed JWT
 - **CVE-2023-26546** — Remote code execution in IUCLID 6 via Server-Side Template Injection
+- **CVE-2024-0420** — MapPress Maps for WordPress < 2.88.15 - Contributor+ Stored XSS
 
 ## Certifications
 
