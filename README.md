@@ -1,4 +1,4 @@
-# Salvatore Bova — security research blog
+# Salvatore Bova (saso995)— security research blog
 
 A [Jekyll](https://jekyllrb.com/) site built on the [Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy)
 theme and deployed to GitHub Pages via GitHub Actions.
