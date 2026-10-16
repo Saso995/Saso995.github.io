@@ -17,8 +17,17 @@ and reporting on penetration-test findings — and hands-on exploit development.
 
 ## Certifications
 
+- **eWPTXv2** — Web Application Penetration Tester eXtreme
+- **OPST** — OSSTMM Professional Security Tester
+- **GMOB** — GIAC Mobile Device Security Analyst
+- **OSCP** — Offensive Security Certified Professional
+- **OSEP** — Offensive Security Experienced Penetrator
+- **OSWE** — Offensive Security Web Expert
 - **OSED** — Offensive Security Exploit Developer
-- Working toward **OSCE³**
+- **OSCE³** — Offensive Security Certified Expert 3 (OSEP + OSWE + OSED)
+- **RTO-PERS** — RED TEAM Operator: Windows Persistence Course
+- **RTO-MDI** — RED TEAM Operator: Malware Development Intermediate Course
+
 
 ## Contact
 
