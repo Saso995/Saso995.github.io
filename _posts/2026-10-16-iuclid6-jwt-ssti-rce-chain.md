@@ -13,7 +13,7 @@ application run by ECHA) that were subsequently assigned **CVE-2023-26089** and
 **CVE-2023-26546**. Taken on their own, each is serious. Chained together, they turn an
 ordinary low-privilege foothold into **remote code execution** on the server.
 
-This research was a joint effort with my good friend and fellow researcher **Andrea Cecili**.
+This research was a joint effort with my good friend and fellow researcher **Andrea Cecili** ❤️
 
 Tested on **IUCLID 6 v6.27.2** (build of 03/11/2022). Both issues are fixed from
 [v6.27.6](https://iuclid6.echa.europa.eu/documents/1387205/1809530/note_v6.27.6.pdf/76545a65-e6be-6486-280a-7d7c3d2ad455?t=1677577170669)
