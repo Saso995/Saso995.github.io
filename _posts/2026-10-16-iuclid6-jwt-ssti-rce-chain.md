@@ -20,17 +20,17 @@ onwards.
 ## TL;DR
 
 - The application signs its JWTs with a **weak, guessable HMAC secret**. Recover it, and you
-  can forge a token for any user — including `SuperUser`. That's **CVE-2023-26089**.
+  can forge a token for any user, including `SuperUser`. That's **CVE-2023-26089**.
 - The report-generation feature renders **user-supplied FreeMarker templates without a
   sandbox**, so a template can execute OS commands. That's **CVE-2023-26546**.
 - The SSTI requires an authenticated session. The JWT bug *removes that precondition*, so the
   combined chain is effectively **unauthenticated RCE**.
 
-## CVE-2023-26089 — Account takeover via a weakly-signed JWT
+## CVE-2023-26089: Account takeover via a weakly-signed JWT
 
 A JWT's signature is the only thing binding its claims to the server's authority. It holds up
 only while the signing secret stays secret and is hard to guess. IUCLID 6 used a weak HMAC
-secret — weak enough that Burp Suite flagged and cracked it immediately after authentication.
+secret, weak enough that Burp Suite flagged and cracked it immediately after authentication.
 
 ![Burp Suite flags the weak HMAC signing secret and recovers the key.](/assets/img/posts/iuclid-rce/jwt-weak-secret.png)
 _Burp Suite flags the weak HMAC secret; the recovered key is shown._
@@ -51,14 +51,14 @@ _Full account takeover: authenticated as `SuperUser`._
 Because one shared weak secret underlies every token, this affects **all** accounts on the
 instance.
 
-> **Proposed CVSS 3.1:** `AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H` — 9.8 (Critical).
+> **Proposed CVSS 3.1:** `AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H`, 9.8 (Critical).
 {: .prompt-danger }
 
-## CVE-2023-26546 — RCE via Server-Side Template Injection
+## CVE-2023-26546: RCE via Server-Side Template Injection
 
 IUCLID lets users upload custom `.ftl` report templates and renders them server-side with
 **FreeMarker**. FreeMarker exposes a utility class, `freemarker.template.utility.Execute`,
-whose `?new()` built-in instantiates it — and invoking it runs an arbitrary shell command.
+whose `?new()` built-in instantiates it, and invoking it runs an arbitrary shell command.
 With no restricted `TemplateClassResolver` in place, anyone who controls a template controls
 the host.
 
@@ -79,15 +79,15 @@ Then generate a report from an article using that template (**Dashboard → Arti
 Report**), download it, and the command output is sitting inside the generated document:
 
 ![Command output embedded in the generated report, confirming code execution.](/assets/img/posts/iuclid-rce/ssti-output.png)
-_The generated report contains the output of `whoami` — code execution on the server._
+_The generated report contains the output of `whoami`: code execution on the server._
 
-> **Proposed CVSS 3.1 (standalone, authenticated):** `AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H` — 8.8 (High).
+> **Proposed CVSS 3.1 (standalone, authenticated):** `AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H`, 8.8 (High).
 {: .prompt-danger }
 
 ## Chaining them
 
 The SSTI needs a session with access to the report feature. On its own that's a privilege
-requirement. But the JWT flaw lets you forge a `SuperUser` token from nothing — so you satisfy
+requirement. But the JWT flaw lets you forge a `SuperUser` token from nothing, so you satisfy
 the SSTI's precondition without any legitimate access at all.
 
 ```
@@ -96,7 +96,7 @@ weak JWT secret  ──▶  forge SuperUser token  ──▶  upload malicious .
 
 Chained, the effective privilege requirement drops to **none**:
 
-> **Proposed CVSS 3.1 (chained):** `AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H` — 9.8 (Critical).
+> **Proposed CVSS 3.1 (chained):** `AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H`, 9.8 (Critical).
 {: .prompt-danger }
 
 ## Fixes
