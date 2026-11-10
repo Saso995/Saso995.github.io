@@ -7,7 +7,7 @@ description: "Why obfuscation and encryption keep failing against a modern endpo
 toc: true
 image:
   path: /assets/img/posts/three-layers/defenderBypass.png
-  alt:  Bypassing Microsoft Defender to obtain a powershell reverseshell.
+  alt:  Bypassing Microsoft Defender to obtain a powershell reverse shell.
 ---
 
 > This is a concepts piece: the mental model, not a method. The only code it shows is the *obfuscation* layer - the one the whole post argues is the weakest and least dangerous - quoted the way any Invoke-Obfuscation write-up already does. There is no AMSI or endpoint-bypass recipe here, no commands to copy, nothing that turns into a working evasion. It explains why certain intuitions about hiding a script are wrong, and stops short of how anyone turns that into a bypass.
