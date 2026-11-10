@@ -251,5 +251,26 @@
   </footer>
 
 </main>
+
+<script>
+/* Reports this page's height to a parent frame (if embedded), so the iframe
+   can size itself with no inner scrollbar. Harmless when opened standalone. */
+(function () {
+  if (window.parent === window) return;
+  function height() {
+    return Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    );
+  }
+  function send() { window.parent.postMessage({ __tl: true, height: height() }, "*"); }
+  window.addEventListener("load", send);
+  window.addEventListener("resize", send);
+  if (window.ResizeObserver) { new ResizeObserver(send).observe(document.body); }
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(send); }
+  setTimeout(send, 300);
+  setTimeout(send, 1200);
+})();
+</script>
 </body>
 </html>
